@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .homepage-form {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #8e44ad, #732d91);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+        }
+        .homepage-form h1 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .homepage-form .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .homepage-form .step.active {
+            display: block;
+        }
+        .homepage-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .homepage-form input, .homepage-form button {
+            font-size: 1em;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .homepage-form input {
+            background: #fff;
+            color: #333;
+        }
+        .homepage-form input:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+        .homepage-form button {
+            background: #fff;
+            color: #8e44ad;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .homepage-form button:hover {
+            background: #f1f1f1;
+            transform: scale(1.05);
+        }
+        .homepage-form button:active {
+            transform: scale(1);
+        }
+        .homepage-form .error {
+            color: #ff6b6b;
+            font-size: 0.9em;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>ChimMenu</h2>
+        <a href="beranda.html" class="active">Beranda</a>
+        <a href="upload.html">Upload Menu</a>
+        <a href="koleksi.html">Koleksi Resep</a>
+    </nav>
+    <main>
+        <div class="homepage-form">
+            <h1>Form Acara Anda</h1>
+            <form id="multi-step-form">
+                <div class="step active" id="step-1">
+                    <label for="event-name">Apa nama acara Anda?</label>
+                    <input type="text" id="event-name" name="event-name" placeholder="Masukkan nama acara" required>
+                    <div class="error"></div>
+                    <button type="button" onclick="nextStep()">Next</button>
+                </div>
+                <div class="step" id="step-2">
+                    <label for="event-location">Di mana acara Anda berlangsung?</label>
+                    <input type="text" id="event-location" name="event-location" placeholder="Masukkan lokasi acara" required>
+                    <div class="error"></div>
+                    <button type="button" onclick="nextStep()">Next</button>
+                </div>
+                <div class="step" id="step-3">
+                    <label for="event-date">Kapan acara Anda berlangsung?</label>
+                    <input type="date" id="event-date" name="event-date" required>
+                    <div class="error"></div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="resep-card" onclick="navigateToRecipe('menus/babi-kecap-darren.html')">
+                <img src="https://cahayameat.com/wp-content/uploads/2024/08/resep-daging-babi-kecap-1.webp" alt="Babi Kecap Darren">
+                <div class="resep-card-content">
+                    <h2>Babi Kecap Darren</h2>
+                    <p>Babi kecap spesial dengan rasa manis gurih yang menggugah selera.</p>
+                </div>
+            </div>
+            <div class="resep-card" onclick="navigateToRecipe('menus/bubur-gunting.html')">
+                <img src="https://cdn.rri.co.id/berita/Pusat_Pemberitaan/o/1730634712705-1000090605/8eupdhc7pkj7hh9.jpeg" alt="Bubur Gunting">
+                <div class="resep-card-content">
+                    <h2>Bubur Gunting</h2>
+                    <p>Bubur gunting adalah hidangan sederhana namun lezat yang cocok untuk sarapan.</p>
+                </div>
+            </div>
+            <div class="resep-card" onclick="navigateToRecipe('menus/bubur-pedas.html')">
+                <img src="https://cdn1-production-images-kly.akamaized.net/QZSeka6HVAti-I5ysjuUWlGpisM=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1309676/original/027544300_1470488585-20160806-bubur-pedas-sambas-kalbar.jpg" alt="Bubur Pedas">
+                <div class="resep-card-content">
+                    <h2>Bubur Pedas</h2>
+                    <p>Bubur pedas adalah hidangan khas yang memadukan rasa pedas dan gurih.</p>
+                </div>
+            </div>
+            <div class="resep-card" onclick="navigateToRecipe('menus/capcai.html')">
+                <img src="https://asset.kompas.com/crops/0TAYtSARLhrA8bCNnfQyXeXj2N0=/100x67:900x600/1200x800/data/photo/2021/01/01/5fee5925f248d.jpg" alt="Capcai">
+                <div class="resep-card-content">
+                    <h2>Capcai</h2>
+                    <p>Capcai adalah hidangan sehat dan lezat yang menggabungkan berbagai sayuran segar.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+    <script>
+        let currentStep = 1;
+
+        function nextStep() {
+            const current = document.getElementById(`step-${currentStep}`);
+            const next = document.getElementById(`step-${currentStep + 1}`);
+            const input = current.querySelector('input');
+            const error = current.querySelector('.error');
+
+            if (input && !input.checkValidity()) {
+                error.textContent = "Harap isi data dengan benar!";
+                return;
+            }
+
+            if (next) {
+                current.classList.remove('active');
+                current.classList.add('fade-out');
+                setTimeout(() => {
+                    current.style.display = 'none';
+                    next.style.display = 'block';
+                    next.classList.add('fade-in');
+                    currentStep++;
+                }, 300);
+            }
+        }
+
+        document.getElementById('multi-step-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                name: document.getElementById('event-name').value.trim(),
+                location: document.getElementById('event-location').value.trim(),
+                date: document.getElementById('event-date').value.trim(),
+            };
+
+            if (Object.values(formData).some(value => !value)) {
+                alert('Harap isi semua data dengan lengkap!');
+                return;
+            }
+
+            alert(`Acara "${formData.name}" berhasil disimpan!`);
+            document.getElementById('multi-step-form').reset();
+            currentStep = 1;
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active');
+                if (index === 0) step.classList.add('active');
+            });
+        });
+
+        function navigateToRecipe(link) {
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>

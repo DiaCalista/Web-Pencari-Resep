@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resep Bubur Gunting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/recipe.css">
+    <style>
+        .recipe-ingredients ul {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 0;
+            list-style: none;
+        }
+        .recipe-ingredients ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .recipe-ingredients ul li:last-child {
+            border-bottom: none;
+        }
+        .recipe-content ol {
+            counter-reset: step-counter;
+            padding-left: 20px;
+            list-style: none;
+        }
+        .recipe-content ol li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 30px;
+        }
+        .recipe-content ol li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background-color: #555;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .sticky-title {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 999;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="recipe-header sticky-title">
+        <h1>Resep Bubur Gunting</h1>
+    </header>
+    <main class="recipe-container">
+        <div class="recipe-layout">
+            <aside class="recipe-sidebar">
+                <section class="recipe-image">
+                    <img src="https://cdn.rri.co.id/berita/Pusat_Pemberitaan/o/1730634712705-1000090605/8eupdhc7pkj7hh9.jpeg" alt="Bubur Gunting">
+                </section>
+                <section class="recipe-info">
+                    <h2><strong>Resep Bubur Gunting</strong></h2>
+                    <div class="creator-info">
+                        <img src="https://via.placeholder.com/50" alt="Sheril" class="profile-pic">
+                        <p>Dibuat oleh <strong>Sheril</strong></p>
+                    </div>
+                    <p><em>"Saya menciptakan resep bubur gunting ini untuk menghadirkan kehangatan dan kelezatan yang sederhana namun penuh kenangan, menginspirasi setiap pagi dengan cita rasa tradisional yang menyehatkan dan memuaskan."</em></p>
+                </section>
+                <section class="recipe-ingredients">
+                    <h2>Bahan-Bahan</h2>
+                    <ul>
+                        <li>200 gram beras</li>
+                        <li>1 liter air atau kaldu ayam</li>
+                        <li>150 gram daging ayam rebus, suwir halus</li>
+                        <li>1 buah wortel, potong dadu kecil</li>
+                        <li>Secukupnya bayam</li>
+                        <li>Daun bawang</li>
+                        <li>Garam dan merica</li>
+                        <li>Topping: Bawang goreng, irisan seledri, sambal (opsional)</li>
+                    </ul>
+                </section>
+            </aside>
+            <section class="recipe-content">
+                <h2>Deskripsi</h2>
+                <p>Bubur gunting adalah hidangan sederhana namun lezat yang cocok untuk sarapan, menghadirkan kehangatan dan cita rasa tradisional.</p>
+                <h2>Cara Memasak</h2>
+                <ol>
+                    <li>Cuci beras dan masak bersama air atau kaldu dengan sedikit garam hingga beras hancur dan berubah menjadi bubur kental.</li>
+                    <li>Sementara itu, rebus daging ayam hingga empuk, suwir halus, dan campurkan dengan wortel yang sudah direbus.</li>
+                    <li>Setelah bubur matang, masukkan isian ayam suwir dan wortel, aduk rata.</li>
+                    <li>Gunting atau aduk dengan sendok hingga semua bahan tercampur sempurna.</li>
+                    <li>Koreksi rasa dengan garam dan merica, lalu sajikan dengan taburan bawang goreng, irisan seledri, dan sambal jika suka.</li>
+                </ol>
+                <h2>Video Cara Pembuatan</h2>
+                <p>Simak video cara pembuatan bubur gunting di bawah ini:</p>
+                <a href="https://youtu.be/KcFFNmOoJ2Y?si=Yvte3MZr2hhPoM7t" target="_blank" class="video-link">Tonton Video di YouTube</a>
+                <div class="button-group">
+                    <button onclick="window.location.href='http://127.0.0.1:5500/beranda.html'">Kembali</button>
+                    <button class="save-button" data-nama="Resep Bubur Gunting" onclick="toggleKoleksiMenu('Resep Bubur Gunting', 'http://127.0.0.1:5500/menus/bubur-gunting.html', this)">
+                        <i class="fas fa-bookmark"></i> Koleksi Menu
+                    </button>
+                </div>
+                <section class="reactions">
+                    <h2>Reaksi</h2>
+                    <button class="reaction-button" onclick="toggleReaction('Resep Bubur Gunting')">👍 <span id="reaction-count-Resep Bubur Gunting">0</span></button>
+                </section>
+                <section class="comments">
+                    <h2>Komentar</h2>
+                    <textarea placeholder="Tulis komentar Anda di sini..." rows="4"></textarea>
+                    <button class="comment-button" onclick="kirimKomentar()">Kirim</button>
+                    <div class="comment-list">
+                        <!-- Komentar akan ditampilkan di sini -->
+                    </div>
+                </section>
+                <section class="suggestions">
+                    <h2>Saran Resep Lain</h2>
+                    <div class="suggestion-container">
+                        <div class="suggestion-card" onclick="navigateToRecipe('../bakmie.html')">
+                            <img src="https://awsimages.detik.net.id/community/media/visual/2021/11/01/20-bakmi-babi-paling-endes-ada-di-tempat-ini-19.jpeg?w=1200" alt="Bakmie">
+                            <p>Bakmie</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('../kwetiau.html')">
+                            <img src="https://img-global.cpcdn.com/recipes/8b7948d64465a5b3/680x482cq70/kwetiau-goreng-sayur-kol-foto-resep-utama.jpg" alt="Kwetiau">
+                            <p>Kwetiau</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('../nasigoreng.html')">
+                            <img src="https://img-global.cpcdn.com/recipes/0820c8cf5a5e18aa/1200x630cq70/photo.jpg" alt="Nasi Goreng">
+                            <p>Nasi Goreng</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('babi-kecap-darren.html')">
+                            <img src="https://cahayameat.com/wp-content/uploads/2024/08/resep-daging-babi-kecap-1.webp" alt="Babi Kecap Darren">
+                            <p>Babi Kecap Darren</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('bubur-pedas.html')">
+                            <img src="https://cdn1-production-images-kly.akamaized.net/QZSeka6HVAti-I5ysjuUWlGpisM=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1309676/original/027544300_1470488585-20160806-bubur-pedas-sambas-kalbar.jpg" alt="Bubur Pedas">
+                            <p>Bubur Pedas</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('capcai.html')">
+                            <img src="https://asset.kompas.com/crops/0TAYtSARLhrA8bCNnfQyXeXj2N0=/100x67:900x600/1200x800/data/photo/2021/01/01/5fee5925f248d.jpg" alt="Capcai">
+                            <p>Capcai</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+    <script src="../api/koleksi.js"></script>
+    <script src="../api/reactions.js"></script>
+    <script src="../api/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+        });
+    </script>
+    <script>
+        function toggleKoleksiMenu(nama, link, button) {
+            const koleksiResep = JSON.parse(localStorage.getItem('koleksiResep')) || [];
+            const index = koleksiResep.findIndex(resep => resep.nama === nama);
+
+            if (index === -1) {
+                koleksiResep.push({
+                    nama: nama,
+                    gambar: "https://cdn.rri.co.id/berita/Pusat_Pemberitaan/o/1730634712705-1000090605/8eupdhc7pkj7hh9.jpeg",
+                    deskripsi: "Bubur gunting adalah hidangan sederhana namun lezat.",
+                    link: link
+                });
+                localStorage.setItem('koleksiResep', JSON.stringify(koleksiResep));
+                button.innerHTML = '<i class="fas fa-bookmark"></i> Tersimpan';
+                button.style.backgroundColor = 'yellow';
+                button.style.color = 'black';
+                alert("Menu berhasil disimpan ke koleksi!");
+            } else {
+                koleksiResep.splice(index, 1);
+                localStorage.setItem('koleksiResep', JSON.stringify(koleksiResep));
+                button.innerHTML = '<i class="fas fa-bookmark"></i> Koleksi Menu';
+                button.style.backgroundColor = '';
+                button.style.color = '';
+                alert("Menu berhasil dihapus dari koleksi!");
+            }
+        }
+
+        function toggleReaction(nama) {
+            const reactionCount = document.getElementById(`reaction-count-${nama}`);
+            let count = parseInt(reactionCount.textContent, 10);
+            count++;
+            reactionCount.textContent = count;
+        }
+
+        function kirimKomentar() {
+            const komentarInput = document.querySelector('.comments textarea');
+            const komentarList = document.querySelector('.comment-list');
+            const komentar = komentarInput.value.trim();
+
+            if (komentar) {
+                const komentarData = JSON.parse(localStorage.getItem('komentarBuburGunting')) || [];
+                komentarData.push(komentar);
+                localStorage.setItem('komentarBuburGunting', JSON.stringify(komentarData));
+
+                const komentarItem = document.createElement('p');
+                komentarItem.innerHTML = `<strong>Anda:</strong> ${komentar}`;
+                komentarList.appendChild(komentarItem);
+
+                komentarInput.value = '';
+            } else {
+                alert("Komentar tidak boleh kosong!");
+            }
+        }
+
+        function tampilkanKomentar() {
+            const komentarData = JSON.parse(localStorage.getItem('komentarBuburGunting')) || [];
+            const komentarList = document.querySelector('.comment-list');
+            komentarList.innerHTML = '';
+
+            komentarData.forEach(komentar => {
+                const komentarItem = document.createElement('p');
+                komentarItem.innerHTML = `<strong>Pengguna:</strong> ${komentar}`;
+                komentarList.appendChild(komentarItem);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', tampilkanKomentar);
+
+        function navigateToRecipe(link) {
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>

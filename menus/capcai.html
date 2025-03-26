@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resep Capcai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/recipe.css">
+    <style>
+        .recipe-ingredients ul {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 0;
+            list-style: none;
+        }
+        .recipe-ingredients ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .recipe-ingredients ul li:last-child {
+            border-bottom: none;
+        }
+        .recipe-content ol {
+            counter-reset: step-counter;
+            padding-left: 20px;
+            list-style: none;
+        }
+        .recipe-content ol li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 30px;
+        }
+        .recipe-content ol li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background-color: #555;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .sticky-title {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            z-index: 999;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="recipe-header sticky-title">
+        <h1>Resep Capcai</h1>
+    </header>
+    <main class="recipe-container">
+        <div class="recipe-layout">
+            <aside class="recipe-sidebar">
+                <section class="recipe-image">
+                    <img src="https://asset.kompas.com/crops/0TAYtSARLhrA8bCNnfQyXeXj2N0=/100x67:900x600/1200x800/data/photo/2021/01/01/5fee5925f248d.jpg" alt="Capcai">
+                </section>
+                <section class="recipe-info">
+                    <h2><strong>Resep Capcai</strong></h2>
+                    <div class="creator-info">
+                        <img src="https://via.placeholder.com/50" alt="Richard Awen" class="profile-pic">
+                        <p>Dibuat oleh <strong>Richard Awen</strong></p>
+                    </div>
+                    <p><em>"Saya menciptakan resep capcai ini untuk membawa keceriaan dan kesehatan ke meja makan. Setiap warna sayuran melambangkan dinamika hidup yang penuh nutrisi dan semangat, sehingga setiap hidangan menjadi inspirasi bagi keluarga untuk hidup lebih sehat dan bahagia."</em></p>
+                </section>
+                <section class="recipe-ingredients">
+                    <h2>Bahan-Bahan</h2>
+                    <ul>
+                        <li>300 gram daging ayam atau seafood (sesuai selera), potong dadu</li>
+                        <li>200 gram wortel, iris tipis</li>
+                        <li>150 gram kembang kol, potong kecil</li>
+                        <li>100 gram sawi hijau, potong-potong</li>
+                        <li>1 buah brokoli kecil, potong per kuntum</li>
+                        <li>4 siung bawang putih, cincang halus</li>
+                        <li>2 butir bawang merah, iris tipis</li>
+                        <li>1 sdm saus tiram</li>
+                        <li>2 sdm kecap manis</li>
+                        <li>Garam, merica secukupnya</li>
+                        <li>200 ml air atau kaldu ayam</li>
+                        <li>Minyak goreng secukupnya</li>
+                    </ul>
+                </section>
+            </aside>
+            <section class="recipe-content">
+                <h2>Deskripsi</h2>
+                <p>Capcai adalah hidangan sehat dan lezat yang menggabungkan berbagai sayuran segar dengan bumbu khas, cocok untuk dinikmati bersama keluarga.</p>
+                <h2>Cara Memasak</h2>
+                <ol>
+                    <li>Panaskan minyak, tumis bawang putih dan bawang merah hingga harum.</li>
+                    <li>Masukkan daging ayam/seafood, masak hingga berubah warna.</li>
+                    <li>Tambahkan wortel, kembang kol, dan brokoli, aduk selama 2-3 menit.</li>
+                    <li>Tuangkan air atau kaldu, masukkan saus tiram, kecap manis, garam, dan merica.</li>
+                    <li>Masak dengan api sedang hingga sayuran matang tapi tetap renyah.</li>
+                    <li>Terakhir, masukkan sawi hijau, aduk cepat, dan angkat.</li>
+                </ol>
+                <h2>Video Cara Pembuatan</h2>
+                <p>Simak video cara pembuatan capcai di bawah ini:</p>
+                <a href="https://youtu.be/YxMqHgQxsW0?si=r5uPy3-c6uLNLbI4" target="_blank" class="video-link">Tonton Video di YouTube</a>
+                <div class="button-group">
+                    <button onclick="window.location.href='http://127.0.0.1:5500/beranda.html'">Kembali</button>
+                    <button class="save-button" data-nama="Resep Capcai" onclick="toggleKoleksiMenu('Resep Capcai', 'http://127.0.0.1:5500/menus/capcai.html', this)">
+                        <i class="fas fa-bookmark"></i> Koleksi Menu
+                    </button>
+                </div>
+                <section class="reactions">
+                    <h2>Reaksi</h2>
+                    <button class="reaction-button" onclick="toggleReaction('Resep Capcai')">👍 <span id="reaction-count-Resep Capcai">0</span></button>
+                </section>
+                <section class="comments">
+                    <h2>Komentar</h2>
+                    <textarea placeholder="Tulis komentar Anda di sini..." rows="4"></textarea>
+                    <button class="comment-button" onclick="kirimKomentar()">Kirim</button>
+                    <div class="comment-list">
+                        <!-- Komentar akan ditampilkan di sini -->
+                    </div>
+                </section>
+                <section class="suggestions">
+                    <h2>Saran Resep Lain</h2>
+                    <div class="suggestion-container">
+                        <div class="suggestion-card" onclick="navigateToRecipe('../bakmie.html')">
+                            <img src="https://awsimages.detik.net.id/community/media/visual/2021/11/01/20-bakmi-babi-paling-endes-ada-di-tempat-ini-19.jpeg?w=1200" alt="Bakmie">
+                            <p>Bakmie</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('../kwetiau.html')">
+                            <img src="https://img-global.cpcdn.com/recipes/8b7948d64465a5b3/680x482cq70/kwetiau-goreng-sayur-kol-foto-resep-utama.jpg" alt="Kwetiau">
+                            <p>Kwetiau</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('../nasigoreng.html')">
+                            <img src="https://img-global.cpcdn.com/recipes/0820c8cf5a5e18aa/1200x630cq70/photo.jpg" alt="Nasi Goreng">
+                            <p>Nasi Goreng</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('menus/babi-kecap-darren.html')">
+                            <img src="https://cahayameat.com/wp-content/uploads/2024/08/resep-daging-babi-kecap-1.webp" alt="Babi Kecap Darren">
+                            <p>Babi Kecap Darren</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('menus/bubur-gunting.html')">
+                            <img src="https://cdn.rri.co.id/berita/Pusat_Pemberitaan/o/1730634712705-1000090605/8eupdhc7pkj7hh9.jpeg" alt="Bubur Gunting">
+                            <p>Bubur Gunting</p>
+                        </div>
+                        <div class="suggestion-card" onclick="navigateToRecipe('menus/bubur-pedas.html')">
+                            <img src="https://cdn1-production-images-kly.akamaized.net/QZSeka6HVAti-I5ysjuUWlGpisM=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1309676/original/027544300_1470488585-20160806-bubur-pedas-sambas-kalbar.jpg" alt="Bubur Pedas">
+                            <p>Bubur Pedas</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+    <script src="../api/koleksi.js"></script>
+    <script src="../api/reactions.js"></script>
+    <script src="../api/navigation.js"></script>
+    <script>
+        function toggleKoleksiMenu(nama, link, button) {
+            const koleksiResep = JSON.parse(localStorage.getItem('koleksiResep')) || [];
+            const index = koleksiResep.findIndex(resep => resep.nama === nama);
+
+            if (index === -1) {
+                koleksiResep.push({
+                    nama: nama,
+                    gambar: "https://asset.kompas.com/crops/0TAYtSARLhrA8bCNnfQyXeXj2N0=/100x67:900x600/1200x800/data/photo/2021/01/01/5fee5925f248d.jpg",
+                    deskripsi: "Capcai adalah hidangan sehat dan lezat.",
+                    link: link
+                });
+                localStorage.setItem('koleksiResep', JSON.stringify(koleksiResep));
+                button.innerHTML = '<i class="fas fa-bookmark"></i> Tersimpan';
+                button.style.backgroundColor = 'yellow';
+                button.style.color = 'black';
+                alert("Menu berhasil disimpan ke koleksi!");
+            } else {
+                koleksiResep.splice(index, 1);
+                localStorage.setItem('koleksiResep', JSON.stringify(koleksiResep));
+                button.innerHTML = '<i class="fas fa-bookmark"></i> Koleksi Menu';
+                button.style.backgroundColor = '';
+                button.style.color = '';
+                alert("Menu berhasil dihapus dari koleksi!");
+            }
+        }
+
+        function toggleReaction(nama) {
+            const reactionCount = document.getElementById(`reaction-count-${nama}`);
+            let count = parseInt(reactionCount.textContent, 10);
+            count++;
+            reactionCount.textContent = count;
+        }
+
+        function kirimKomentar() {
+            const komentarInput = document.querySelector('.comments textarea');
+            const komentarList = document.querySelector('.comment-list');
+            const komentar = komentarInput.value.trim();
+
+            if (komentar) {
+                const komentarData = JSON.parse(localStorage.getItem('komentarCapcai')) || [];
+                komentarData.push(komentar);
+                localStorage.setItem('komentarCapcai', JSON.stringify(komentarData));
+
+                const komentarItem = document.createElement('p');
+                komentarItem.innerHTML = `<strong>Anda:</strong> ${komentar}`;
+                komentarList.appendChild(komentarItem);
+
+                komentarInput.value = '';
+            } else {
+                alert("Komentar tidak boleh kosong!");
+            }
+        }
+
+        function tampilkanKomentar() {
+            const komentarData = JSON.parse(localStorage.getItem('komentarCapcai')) || [];
+            const komentarList = document.querySelector('.comment-list');
+            komentarList.innerHTML = '';
+
+            komentarData.forEach(komentar => {
+                const komentarItem = document.createElement('p');
+                komentarItem.innerHTML = `<strong>Pengguna:</strong> ${komentar}`;
+                komentarList.appendChild(komentarItem);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', tampilkanKomentar);
+
+        function navigateToRecipe(link) {
+            window.location.href = link;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+        });
+    </script>
+</body>
+</html>

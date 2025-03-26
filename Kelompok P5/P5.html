@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChimMenu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/navigation.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #333; display: flex; }
+        nav { width: 250px; background-color: #8e44ad; padding: 20px; height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; }
+        nav h2 { color: white; text-align: center; font-weight: 600; margin-bottom: 20px; }
+        nav a { display: block; color: white; text-decoration: none; font-weight: bold; padding: 15px; border-radius: 5px; transition: background 0.3s; text-align: center; }
+        nav a:hover { background-color: #732d91; }
+        .container { flex: 1; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .search-bar { margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .search-bar input { width: 70%; padding: 15px; border: 2px solid #8e44ad; border-radius: 30px; font-size: 1.2em; outline: none; transition: box-shadow 0.3s, border-color 0.3s; }
+        .search-bar input:focus { box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); border-color: #732d91; }
+        .search-bar button { padding: 15px 20px; background-color: #8e44ad; color: white; border: none; border-radius: 30px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s, transform 0.2s; }
+        .search-bar button:hover { background-color: #732d91; transform: scale(1.05); }
+        .resep-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; justify-items: center; }
+        .resep-card { position: relative; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; max-width: 300px; }
+        .resep-card:hover { transform: scale(1.05); box-shadow: 0 8px 16px rgba(138, 43, 226, 0.5); }
+        .resep-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(138, 43, 226, 0.3), transparent); opacity: 0; transition: opacity 0.3s; }
+        .resep-card:hover::before { opacity: 1; }
+        .resep-card img { width: 100%; height: 200px; object-fit: cover; }
+        .resep-card-content { padding: 15px; }
+        .resep-card-content h2 { font-size: 1.5em; color: #2c3e50; margin: 0 0 10px; }
+        .resep-card-content p { font-size: 1em; color: #666; margin: 0; }
+        footer { background-color: #8e44ad; color: white; text-align: center; padding: 10px 0; margin-top: 20px; }
+        footer p { margin: 0; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>ChimMenu</h2>
+        <a href="../beranda.html" class="active">Beranda</a>
+        <a href="../upload.html">Upload Menu</a>
+        <a href="../koleksi.html">Koleksi Resep</a>
+    </nav>
+    <main class="container">
+        <h1>Beranda</h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Cari resep di sini..." onkeyup="cariResep()">
+            <button onclick="cariResep()">Cari</button>
+        </div>
+        <div id="resep-container" class="resep-container"></div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+    <script>
+        const resepList = [
+            { 
+                nama: "Bakmie", 
+                gambar: "https://awsimages.detik.net.id/community/media/visual/2021/11/01/20-bakmi-babi-paling-endes-ada-di-tempat-ini-19.jpeg?w=1200", 
+                deskripsi: "Bakmie lezat dengan topping ayam dan sayuran.",
+                link: "../bakmie.html"
+            },
+            { 
+                nama: "Kwetiau", 
+                gambar: "https://img-global.cpcdn.com/recipes/8b7948d64465a5b3/680x482cq70/kwetiau-goreng-sayur-kol-foto-resep-utama.jpg", 
+                deskripsi: "Kwetiau goreng dengan bumbu khas.",
+                link: "../kwetiau.html"
+            },
+            { 
+                nama: "Nasi Goreng", 
+                gambar: "https://img-global.cpcdn.com/recipes/0820c8cf5a5e18aa/1200x630cq70/photo.jpg", 
+                deskripsi: "Nasi goreng spesial dengan bumbu khas.",
+                link: "../nasigoreng.html"
+            }
+        ];
+
+        const koleksiResep = JSON.parse(localStorage.getItem('koleksiResep')) || [];
+
+        function navigate(sectionId) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            if (sectionId === 'koleksi') tampilkanKoleksi();
+        }
+
+        function tampilkanResep(keyword = "") {
+            const container = document.getElementById("resep-container");
+            container.innerHTML = "";
+            resepList.forEach((resep) => {
+                if (resep.nama.toLowerCase().includes(keyword.toLowerCase())) {
+                    const card = document.createElement("div");
+                    card.className = "resep-card";
+                    card.innerHTML = `
+                        <img src="${resep.gambar}" alt="Gambar ${resep.nama}" onerror="this.src='https://via.placeholder.com/150?text=No+Image';">
+                        <div class="resep-card-content">
+                            <h2>${resep.nama}</h2>
+                            <p>${resep.deskripsi}</p>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        window.location.href = resep.link;
+                    };
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        function tampilkanKoleksi() {
+            const container = document.getElementById("koleksi-container");
+            container.innerHTML = "";
+            if (koleksiResep.length === 0) {
+                container.innerHTML = "<p style='text-align: center; font-size: 1.2em;'>Tidak ada resep yang disimpan.</p>";
+            } else {
+                koleksiResep.forEach((resep) => {
+                    const card = document.createElement("div");
+                    card.className = "resep-card";
+                    card.innerHTML = `
+                        <img src="${resep.gambar}" alt="Gambar ${resep.nama}" onerror="this.src='https://via.placeholder.com/150?text=No+Image';">
+                        <div class="resep-card-content">
+                            <h2>${resep.nama}</h2>
+                            <p>${resep.deskripsi}</p>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        window.location.href = resep.link;
+                    };
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        function cariResep() {
+            const keyword = document.getElementById("search").value;
+            tampilkanResep(keyword);
+        }
+
+        tampilkanResep();
+    </script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        nav {
+            background-color: #8e44ad;
+            padding: 20px;
+            text-align: center;
+        }
+        nav h2 {
+            color: white;
+            font-weight: 600;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a.active {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            text-align: center;
+            color: #8e44ad;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .step.active {
+            display: block;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, button {
+            font-size: 1em;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #8e44ad;
+            box-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+        }
+        button {
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #732d91;
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(1);
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        footer {
+            background-color: #8e44ad;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+    </style>
+    <script>
+        let currentStep = 1;
+
+        function nextStep() {
+            const current = document.getElementById(`step-${currentStep}`);
+            const next = document.getElementById(`step-${currentStep + 1}`);
+            const input = current.querySelector('input');
+            const error = current.querySelector('.error');
+
+            if (input && !input.checkValidity()) {
+                error.textContent = "Harap isi data dengan benar!";
+                return;
+            }
+
+            if (next) {
+                current.classList.remove('active');
+                current.style.display = 'none';
+                next.style.display = 'block';
+                next.classList.add('active');
+                currentStep++;
+            }
+        }
+
+        document.getElementById('multi-step-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = {
+                title: document.getElementById('recipe-title').value.trim(),
+                image: document.getElementById('recipe-image').value.trim(),
+                description: document.getElementById('recipe-description').value.trim(),
+                ingredients: document.getElementById('recipe-ingredients').value.trim(),
+                steps: document.getElementById('recipe-steps').value.trim(),
+                youtube: document.getElementById('recipe-youtube').value.trim(),
+                motivation: document.getElementById('recipe-motivation').value.trim(),
+                creator: document.getElementById('recipe-creator').value.trim(),
+            };
+
+            if (Object.values(formData).some(value => !value)) {
+                alert('Harap isi semua data dengan lengkap!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/upload-menu', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                if (response.ok) {
+                    alert('Resep berhasil diupload dan ditambahkan ke beranda!');
+                    window.location.href = 'beranda.html';
+                } else {
+                    alert('Terjadi kesalahan saat mengupload resep.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mengupload resep.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <h2>ChimMenu</h2>
+        <a href="beranda.html">Beranda</a>
+        <a href="upload.html" class="active">Upload Menu</a>
+        <a href="koleksi.html">Koleksi Resep</a>
+    </nav>
+    <main class="container">
+        <h1>Upload Menu</h1>
+        <form id="multi-step-form">
+            <div class="step active" id="step-1">
+                <label for="recipe-title">Apa nama resep Anda?</label>
+                <input type="text" id="recipe-title" name="recipe-title" placeholder="Masukkan nama resep" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-2">
+                <label for="recipe-image">Tambahkan URL gambar resep:</label>
+                <input type="url" id="recipe-image" name="recipe-image" placeholder="Masukkan URL gambar" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-3">
+                <label for="recipe-description">Deskripsikan resep Anda:</label>
+                <input type="text" id="recipe-description" name="recipe-description" placeholder="Masukkan deskripsi resep" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-4">
+                <label for="recipe-ingredients">Apa saja bahan-bahan yang diperlukan? (pisahkan dengan koma)</label>
+                <input type="text" id="recipe-ingredients" name="recipe-ingredients" placeholder="Contoh: 250 gram mie, 2 butir telur" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-5">
+                <label for="recipe-steps">Langkah-langkah memasak? (pisahkan dengan koma)</label>
+                <input type="text" id="recipe-steps" name="recipe-steps" placeholder="Contoh: Rebus mie, Tumis bawang putih" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-6">
+                <label for="recipe-youtube">Tambahkan link video YouTube:</label>
+                <input type="url" id="recipe-youtube" name="recipe-youtube" placeholder="Masukkan URL video YouTube" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-7">
+                <label for="recipe-motivation">Apa motivasi Anda membuat resep ini?</label>
+                <input type="text" id="recipe-motivation" name="recipe-motivation" placeholder="Masukkan motivasi Anda" required>
+                <div class="error"></div>
+                <button type="button" onclick="nextStep()">Next</button>
+            </div>
+            <div class="step" id="step-8">
+                <label for="recipe-creator">Siapa nama pembuat resep ini?</label>
+                <input type="text" id="recipe-creator" name="recipe-creator" placeholder="Masukkan nama Anda" required>
+                <div class="error"></div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+</body>
+</html>

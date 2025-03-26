@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Resep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <style>
+        .resep-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-items: center; /* Tambahkan ini untuk memastikan menu tetap di tengah */
+        }
+        .resep-card {
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            max-width: 300px; /* Tambahkan ini untuk membatasi lebar maksimum kartu */
+        }
+        .resep-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(138, 43, 226, 0.5);
+        }
+        .resep-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .resep-card-content {
+            padding: 15px;
+        }
+        .resep-card-content h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 0 0 10px;
+        }
+        .resep-card-content p {
+            font-size: 1em;
+            color: #666;
+            margin: 0;
+        }
+        .remove-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .remove-button:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h2>ChimMenu</h2>
+        <a href="beranda.html">Beranda</a>
+        <a href="upload.html">Upload Menu</a>
+        <a href="koleksi.html" class="active">Koleksi Resep</a>
+    </nav>
+    <main class="container">
+        <h1>Koleksi Resep</h1>
+        <div id="koleksi-container" class="resep-container"></div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ChimMenu. All rights reserved.</p>
+    </footer>
+    <script>
+        function tampilkanKoleksi() {
+            const koleksiResep = JSON.parse(localStorage.getItem('koleksiResep')) || [];
+            const container = document.getElementById("koleksi-container");
+            container.innerHTML = "";
+
+            if (koleksiResep.length === 0) {
+                container.innerHTML = "<p style='text-align: center; font-size: 1.2em;'>Tidak ada resep yang disimpan.</p>";
+            } else {
+                koleksiResep.forEach((resep, index) => {
+                    const card = document.createElement("div");
+                    card.className = "resep-card";
+                    card.innerHTML = `
+                        <img src="${resep.gambar}" alt="Gambar ${resep.nama}" onerror="this.src='https://via.placeholder.com/150?text=No+Image';">
+                        <div class="resep-card-content">
+                            <h2>${resep.nama}</h2>
+                            <p>${resep.deskripsi}</p>
+                        </div>
+                        <button class="remove-button" onclick="hapusDariKoleksi(${index})">Hapus</button>
+                    `;
+                    card.onclick = (event) => {
+                        if (event.target.tagName !== "BUTTON") {
+                            window.location.href = resep.link;
+                        }
+                    };
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        function hapusDariKoleksi(index) {
+            const koleksiResep = JSON.parse(localStorage.getItem('koleksiResep')) || [];
+            koleksiResep.splice(index, 1);
+            localStorage.setItem('koleksiResep', JSON.stringify(koleksiResep));
+            tampilkanKoleksi();
+            alert("Menu berhasil dihapus dari koleksi!");
+        }
+
+        document.addEventListener("DOMContentLoaded", tampilkanKoleksi);
+    </script>
+</body>
+</html>
